@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from datetime import datetime
 
 
 # Создаём модель товара
@@ -21,6 +22,11 @@ class Product(models.Model):
     price = models.FloatField(
         validators=[MinValueValidator(0.0)],
     )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['time_now'] = datetime.utcnow()
+        context['value1'] = None
+        return context
 
     def __str__(self):
         return f'{self.name.title()}: {self.description[:20]}'

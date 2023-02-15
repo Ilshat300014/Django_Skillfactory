@@ -6,6 +6,7 @@ class ProductsList(ListView):
     model = Product
     template_name = 'products.html'
     context_object_name = 'products'
+    queryset = Product.objects.order_by('-id')
 
 class ProductDetail(DetailView):
     model = Product
