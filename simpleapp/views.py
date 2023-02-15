@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView
 from .models import Product, Category
+from datetime import datetime
 
 
 class ProductsList(ListView):
@@ -7,6 +8,12 @@ class ProductsList(ListView):
     template_name = 'products.html'
     context_object_name = 'products'
     queryset = Product.objects.order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['time_now'] = datetime.utcnow()
+        context['value1'] = None
+        return context
 
 class ProductDetail(DetailView):
     model = Product
